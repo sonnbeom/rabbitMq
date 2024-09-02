@@ -25,43 +25,39 @@ public class RabbitmqConfig {
     @Value("${spring.rabbitmq.port}")
     private int port;
 
-    /**
-     * 1. Exchange 구성합니다.
-     * exchange 라는 이름으로 Direct Exchange 구성
-     *
-     * @return DirectExchange
-     */
-    @Bean
-    DirectExchange directExchange(){
-        return new DirectExchange("exchange");
-    }
-    /**
-     * 2. 큐를 구성합니다.
-     * queue 라는 이름으로 큐를 구성
-     *
-     * @return Queue
-     */
-    @Bean
-    Queue queue(){
-        return new Queue("queue", false);
-    }
-    /**
-     * 3. 큐와 DirectExchange를 바인딩
-     * key 라는 이름으로 바인딩을 구성
-     * Binding : Exchange와 Queue의 관계
-     * 모든 메시지는 Exchange가 가장 먼저 수신하는데 Exchange 타입과 binding 규칙에 따라 적절한 Queue로 전달된다.
-     *
-     * 특정 exchange가 특정 queue를 binding하도록 정의 (fanout 타입은 제외)
-     *
-     *
-     * @param directExchange
-     * @param queue
-     * @return Binding
-     */
-    @Bean
-    Binding binding(DirectExchange directExchange, Queue queue){
-        return BindingBuilder.bind(queue).to(directExchange).with("key");
-    }
+
+
+//    @Bean
+//    Queue queue(){
+//        return new Queue("queue", false); // false => 브로커 재시작, 종료 => 큐가 사라짐
+//    }
+//    /**
+//     * 3. 큐와 DirectExchange를 바인딩
+//     * key 라는 이름으로 바인딩을 구성
+//     * Binding : Exchange와 Queue의 관계
+//     * 모든 메시지는 Exchange가 가장 먼저 수신하는데 Exchange 타입과 binding 규칙에 따라 적절한 Queue로 전달된다.
+//     *
+//     * 특정 exchange가 특정 queue를 binding하도록 정의 (fanout 타입은 제외)
+//     *
+//     *
+//     * @param directExchange
+//     * @param queue
+//     * @return Binding
+//     */
+//    @Bean
+//    Binding binding(DirectExchange directExchange, Queue queue){
+//        return BindingBuilder
+//                .bind(queue)
+//                .to(directExchange)
+//                .with("key"); // 카테고리.항목으로 구성된다. ex) plants.tree
+//    }
+
+    /*
+    * 빈으로 생성된 다이렉트 익스체인지와 큐를 기반으로 바인딩을 해준다.
+        구체적으로는 queue에 다이렉트 익스체인지로 연결시키고 키 값은 'key'로 설정한다
+        앞으로 'key'로 메시지가 발행되면 해당 큐로 메시지가 보내진다
+    * */
+
     /**
      * 4. RabbitMQ와의 연결을 위한 ConnectionFactory을 구성
      * Application.properties의 RabbitMQ의 사용자 정보를 가져와서 RabbitMQ와의 연결에 필요한 ConnectionFactory를 구성합니다.

@@ -21,9 +21,25 @@ public class ProducerController {
     private final ProducerService producerService;
 
 
-    @PostMapping("/send")
-    public SingleResponse<?> sendMessage(@RequestBody MessageDto messageDto){
-        producerService.sendMessage(messageDto);
+    @PostMapping("/direct")
+    public SingleResponse<?> directSendMessage(@RequestBody MessageDto messageDto){
+        producerService.directSendMessage(messageDto);
         return responseService.getSingleResponse(200);
     }
+    @PostMapping("/fanout")
+    public SingleResponse<?> fanoutSendMessage(@RequestBody MessageDto messageDto){
+        producerService.fanoutSendMessage(messageDto);
+        return responseService.getSingleResponse(200);
+    }
+    @PostMapping("/headers")
+    public SingleResponse<?> headersSendMessage(@RequestBody MessageDto messageDto){
+        producerService.headerSendMessage(messageDto);
+        return responseService.getSingleResponse(200);
+    }
+    @PostMapping("/topic")
+    public SingleResponse<?> topicSendMessage(@RequestBody MessageDto messageDto){
+        producerService.topicSendMessage(messageDto);
+        return responseService.getSingleResponse(200);
+    }
+
 }
