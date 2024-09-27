@@ -29,7 +29,7 @@
 # 🔨 시스템 아키텍처
 
 
-![image](https://github.com/user-attachments/assets/841a025e-c2e5-477a-bdd9-761101d6f8ed)
+![image](https://github.com/user-attachments/assets/8a15ffcf-404c-4f48-89b9-8374ab7491ae)
 
 <br/>
 <br/>
