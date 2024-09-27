@@ -1,30 +1,22 @@
 package rabbitMq.rabbitMq.common.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import rabbitMq.rabbitMq.common.response.CommonResponse;
-import rabbitMq.rabbitMq.common.response.ListResponse;
-import rabbitMq.rabbitMq.common.response.SingleResponse;
+import org.springframework.transaction.annotation.Transactional;
+import rabbitMq.rabbitMq.common.dto.Response;
 
-import java.util.List;
 
 @Service
+@Transactional
 public class ResponseServiceImpl implements ResponseService{
-    @Override
-    public <T> SingleResponse<T> getSingleResponse(T data) {
-        SingleResponse singleResponse = new SingleResponse(data);
-        setSuccessResponse(singleResponse);
-        return singleResponse;
-    }
 
-    @Override
-    public <T> ListResponse<T> getListResponse(List<T> dataList) {
-        ListResponse listResponse = new ListResponse(dataList);
-        setSuccessResponse(listResponse);
-        return listResponse;
-    }
-
-    @Override
-    public void setSuccessResponse(CommonResponse response) {
-        response.setSuccessResponse();
+    public <T>Response getResponse(T data, boolean success, HttpStatus code) {
+        return Response.builder()
+                .code(code)
+                .success(success)
+                .data(data)
+                .build();
     }
 }
+
+
