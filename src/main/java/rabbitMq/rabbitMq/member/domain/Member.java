@@ -2,11 +2,11 @@ package rabbitMq.rabbitMq.member.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 import rabbitMq.rabbitMq.member.dto.MemberDto;
 
 @Entity
-@ToString
+@NoArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,7 @@ public class Member {
 
     public MemberDto entityToDto() {
         return MemberDto.builder()
+                .id(id)
                 .email(email)
                 .name(name)
                 .build();

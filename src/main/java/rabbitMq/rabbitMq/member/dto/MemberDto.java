@@ -9,14 +9,16 @@ import rabbitMq.rabbitMq.member.domain.Member;
 @Getter
 @NoArgsConstructor
 public class MemberDto {
+    private Long id;
     private String name;
     private String email;
     private String password;
 
     @Builder
-    public MemberDto(String name, String email) {
+    public MemberDto(String name, String email, Long id) {
         this.name = name;
         this.email = email;
+        this.id = id;
     }
 
     public Member dtoToEntity() {

@@ -18,7 +18,6 @@ public class MemberServiceImpl implements MemberService{
     public Response create(MemberDto memberDto) {
         Member member = memberDto.dtoToEntity();
         Member saved = memberRepository.save(member);
-        System.out.println(saved);
         MemberDto resMemberDto = saved.entityToDto();
         return responseService.getResponse(resMemberDto, true, HttpStatus.CREATED);
     }
